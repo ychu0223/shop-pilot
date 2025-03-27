@@ -15,35 +15,18 @@
 
     header {
       background: #fffcd9;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 20px;
+      text-align: center;
+      padding: 20px 0;
       border-bottom: 2px solid #ffce00;
-      position: sticky;
-      top: 0;
-      z-index: 10;
     }
 
     header img {
       height: 50px;
     }
 
-    .menu-btn {
-      display: none;
-      font-size: 24px;
-      background: none;
-      border: none;
-    }
-
-    nav {
-      display: flex;
-      gap: 20px;
-    }
-
     .container {
       max-width: 700px;
-      margin: 80px auto 100px;
+      margin: 20px auto 120px;
       padding: 0 20px;
     }
 
@@ -54,11 +37,12 @@
     }
 
     .bubble {
-      max-width: 70%;
+      max-width: 80%;
       padding: 12px 16px;
       border-radius: 18px;
       font-size: 16px;
       line-height: 1.4;
+      word-wrap: break-word;
     }
 
     .user {
@@ -84,6 +68,13 @@
       padding: 10px 20px;
       box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
       display: flex;
+      justify-content: center;
+    }
+
+    .chat-input-container {
+      display: flex;
+      width: 100%;
+      max-width: 700px;
       gap: 10px;
     }
 
@@ -95,13 +86,14 @@
       border-radius: 10px;
     }
 
-    .chat-form input[type="submit"] {
+    .chat-form button {
       background-color: #ffce00;
       border: none;
-      padding: 12px 20px;
+      padding: 12px 18px;
       border-radius: 10px;
-      font-weight: bold;
       cursor: pointer;
+      font-size: 18px;
+      line-height: 1;
     }
 
     .typing {
@@ -117,33 +109,11 @@
       color: #777;
       margin-bottom: 60px;
     }
-
-    @media (max-width: 600px) {
-      nav {
-        display: none;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      nav.open {
-        display: flex;
-      }
-
-      .menu-btn {
-        display: block;
-      }
-    }
   </style>
 </head>
 <body>
   <header>
     <img src="{{ url_for('static', filename='logo.png') }}" alt="Shop Pilot Logo">
-    <button class="menu-btn" onclick="toggleMenu()">☰</button>
-    <nav id="nav-links">
-      <a href="#">Home</a>
-      <a href="#">About</a>
-      <a href="#">Help</a>
-    </nav>
   </header>
 
   <div class="container">
@@ -157,8 +127,10 @@
   </div>
 
   <form method="post" class="chat-form" onsubmit="showTyping()">
-    <input type="text" name="message" placeholder="Type your question..." required />
-    <input type="submit" value="Ask" />
+    <div class="chat-input-container">
+      <input type="text" name="message" placeholder="Type your question..." required />
+      <button type="submit">&rarr;</button>
+    </div>
   </form>
 
   <footer>
@@ -166,11 +138,6 @@
   </footer>
 
   <script>
-    function toggleMenu() {
-      const nav = document.getElementById("nav-links");
-      nav.classList.toggle("open");
-    }
-
     function showTyping() {
       document.getElementById("typing-indicator").style.display = "block";
     }

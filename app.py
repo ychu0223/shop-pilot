@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, session
+from flask import Flask, request, render_template, session, redirect, url_for
 from openai import OpenAI
 
 app = Flask(__name__)
@@ -13,11 +13,10 @@ def home():
     if "history" not in session:
         session["history"] = []
 
-    response_text = ""
     if request.method == "POST":
         user_input = request.form["message"]
 
-        # Include previous messages for context (optional)
+        # Include previous messages for context
         full_messages = [{"role": "user", "content": h["user"]} for h in session["history"]]
         full_messages.append({"role": "user", "content": user_input})
 
@@ -31,7 +30,6 @@ def home():
         session["history"].append({"user": user_input, "bot": response_text})
         session.modified = True
 
-    return render_template("chat.html", response=response_text, history=session["history"])
+        return redirect(url_for("home"))  # 🔁 Redirect to avoid form resubmission
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    return render_template("chat.html", history=session["history"])
