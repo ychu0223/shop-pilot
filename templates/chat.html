@@ -1,18 +1,139 @@
-```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Shop Pilot AI Assistant</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop Pilot AI</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fffcd9;
+      color: #2b2b2b;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #fffcd9;
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    header img {
+      width: 120px;
+      height: auto;
+    }
+
+    h1 {
+      margin: 10px 0 5px;
+      font-size: 36px;
+      font-weight: bold;
+    }
+
+    p.subtitle {
+      margin: 0;
+      font-size: 18px;
+      color: #444;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 14px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 14px;
+      font-size: 16px;
+      border: 2px solid #ffce00;
+      border-radius: 10px;
+    }
+
+    input[type="submit"] {
+      background-color: #ffce00;
+      color: #222;
+      border: none;
+      padding: 14px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #f0bd00;
+    }
+
+    .response-box {
+      background: #fff7cc;
+      padding: 18px;
+      border-radius: 10px;
+      font-size: 16px;
+      white-space: pre-wrap;
+      border-left: 6px solid #ffce00;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      font-size: 14px;
+      color: #777;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      input[type="text"],
+      input[type="submit"] {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Ask Shop Pilot</h1>
+
+  <header>
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Shop Pilot Logo" />
+    <h1>Shop Pilot</h1>
+    <p class="subtitle">Your Smart Assistant Powered by AI</p>
+  </header>
+
+  <div class="container">
     <form method="post">
-        <input type="text" name="message" placeholder="Type your question..." style="width:300px;">
-        <input type="submit" value="Ask">
+      <input type="text" name="message" placeholder="Ask me anything..." required />
+      <input type="submit" value="Ask" />
     </form>
-    <div>
-        <h2>Response:</h2>
-        <p>{{ response }}</p>
+
+    {% if response %}
+    <div class="response-box">
+      <strong>Response:</strong><br />
+      {{ response }}
     </div>
+    {% endif %}
+  </div>
+
+  <footer>
+    &copy; 2025 Shop Pilot. All rights reserved.
+  </footer>
+
 </body>
 </html>
