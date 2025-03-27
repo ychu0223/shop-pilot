@@ -148,10 +148,10 @@
 
   <div class="container">
     <div class="chat-box">
-      {% if response %}
-        <div class="bubble user">{{ request.form['message'] }}</div>
-        <div class="bubble bot">{{ response }}</div>
-      {% endif %}
+      {% for item in history %}
+        <div class="bubble user">{{ item.user }}</div>
+        <div class="bubble bot">{{ item.bot }}</div>
+      {% endfor %}
       <div id="typing-indicator" class="typing" style="display: none;">Shop Pilot is typing...</div>
     </div>
   </div>
